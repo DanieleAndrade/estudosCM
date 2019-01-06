@@ -2,11 +2,14 @@ package com.estudoscm.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -33,8 +36,12 @@ public class User implements Serializable {
 	@Column(name="createDate")
 	private Date createDate;
 	
-	@Column(name="address")
+	@Column
 	private Address address;
+	
+	@Column
+	@ElementCollection
+	private List<Options> options;
 	
 	
 	public Integer getId() {
@@ -74,6 +81,14 @@ public class User implements Serializable {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	
+	@OneToMany(mappedBy="user")
+	public List<Options> getOptions() {
+		return options;
+	}
+	public void setOptions(List<Options> options) {
+		this.options = options;
 	}
 	@Override
 	public String toString() {
