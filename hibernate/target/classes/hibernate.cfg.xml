@@ -12,6 +12,7 @@
 		<mapping class="com.estudoscm.model.User"></mapping>
 		<mapping class="com.estudoscm.model.Address"></mapping>
 		<mapping class="com.estudoscm.model.Options"></mapping>
+		<mapping class="com.estudoscm.model.Product"></mapping>
 		
 	</session-factory>
 </hibernate-configuration>

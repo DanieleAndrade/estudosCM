@@ -1,10 +1,12 @@
 package com.estudoscm.hibernate;
 
+import java.util.List;
+
 import org.hibernate.Session;
 
 import com.estudoscm.model.Address;
 import com.estudoscm.model.HibernateSession;
-import com.estudoscm.model.User;
+import com.estudoscm.model.Product;
 
 /**
  * Hello world!
@@ -16,20 +18,34 @@ public class App
     {
     	Session session = HibernateSession.getSessionFactory().openSession();
     	
-    	User user = new User();
-    	Address address = new Address();
+    	session.beginTransaction();
     	
-    	address.setNumber(555);
-    	address.setStreet("Rua A");
-    	address.setUser(user);
+    	Product product = session.find(Product.class, 4);
     	
-    	user.setName("Daniele");
-    	user.setLastName("Andrade");
-    	user.setUsername("danieleandrade");
-    	user.setAddress(address);
+    	if(product.getId() != null) {
+    		session.remove(product);
+    	}
+    
     	
-        System.out.println(session);
-        System.out.println(user.getUsername() + " " + user.getName() + " " + user.getLastName());
-        System.out.println(user.getAddress().getStreet());
+/*    	if(product.getId() != null) {
+    		product.setName("Product Edited");
+    		product.setPrice(50.00);
+    		
+    		session.update(product);
+    	} */
+    	
+/*    	Product product = new Product();
+    	product.setName("Produto 01");
+    	product.setPrice(10.0);
+    	
+    	session.save(product);
+    	
+    	List<Product> products = session.createQuery("from Product").getResultList();
+    	
+    	Product p1 = session.find(Product.class, 2);
+    	
+    	System.out.println(p1.getName()); */
+    	
+    	session.getTransaction().commit();
     }
 }
