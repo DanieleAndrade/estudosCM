@@ -7,8 +7,10 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -43,6 +45,9 @@ public class User implements Serializable {
 	@ElementCollection
 	private List<Options> options;
 	
+	@Column
+	@ElementCollection
+	private List<Computers> computers;
 	
 	public Integer getId() {
 		return id;
@@ -90,10 +95,20 @@ public class User implements Serializable {
 	public void setOptions(List<Options> options) {
 		this.options = options;
 	}
+	
+	@ManyToMany(fetch=FetchType.LAZY, mappedBy="computers")
+	public List<Computers> getComputers() {
+		return computers;
+	}
+	public void setComputers(List<Computers> computers) {
+		this.computers = computers;
+	}
+	
 	@Override
 	public String toString() {
 		return "User [id=]" + id + ", username = " + username + ", name = " + name + ", lastname = " + lastName + ", createDate = " + createDate;
 		
 	}
+	
 	
 }
